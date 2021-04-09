@@ -18,7 +18,7 @@ class AdapterTestSQLServer < ActiveRecord::TestCase
     string = connection.inspect
     _(string).must_match %r{ActiveRecord::ConnectionAdapters::SQLServerAdapter}
     _(string).must_match %r{version\: \d.\d}
-    _(string).must_match %r{mode: dblib}
+    _(string).must_match %r{mode: (dblib|odbc)}
     _(string).must_match %r{azure: (true|false)}
     _(string).wont_match %r{host}
     _(string).wont_match %r{password}
@@ -400,6 +400,7 @@ class AdapterTestSQLServer < ActiveRecord::TestCase
       assert_equal "null", SSTestStringDefaultsBigView.new.pretend_null,
                    SSTestStringDefaultsBigView.columns_hash["pretend_null"].inspect
     end
+
   end
 
   describe "database_prefix_remote_server?" do
